@@ -1,0 +1,19 @@
+{
+  "name": "svift_backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/svift/svift-backend.git"
+  },
+  "dependencies":{
+    "svift-render": "git+ssh://git@bitbucket.org:svift/render-module.git"
+  },
+  "author": "Sebastian Meier",
+  "license": "MIT",
+  "homepage": "https://bitbucket.org/svift/svift-backend#readme"
+}
