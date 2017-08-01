@@ -1,17 +1,27 @@
 {
   "name": "svift_backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Main module for the backend, initiates and controls sub modules",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node index.js | node ./tests/index.js",
+    "postinstall": "wget -O ./http/assets/d3.v4.min.js \"d3js.org/d3.v4.min.js\" && wget -O ./http/assets/svift.min.js \"https://raw.githubusercontent.com/svift-org/test/master/svift.min.js\""
   },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@bitbucket.org/svift/svift-backend.git"
   },
-  "dependencies":{
-    "svift-render": "git+ssh://git@bitbucket.org:svift/render-module.git"
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "connect-session-sequelize": "^4.1.0",
+    "express": "^4.15.3",
+    "express-session": "^1.15.4",
+    "request": "^2.81.0",
+    "sequelize": "^4.4.2",
+    "sqlite3": "^3.1.8",
+    "svift-queue": "git+ssh://git@bitbucket.org/svift/queue-module.git",
+    "svift-render": "git+ssh://git@bitbucket.org/svift/render-module.git",
+    "uuid": "^3.1.0"
   },
   "author": "Sebastian Meier",
   "license": "MIT",

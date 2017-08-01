@@ -1,0 +1,1 @@
+- Crossdomain - only allow calls from the svift domain
