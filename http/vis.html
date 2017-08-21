@@ -16,6 +16,10 @@
       display: inline-block;
       vertical-align: top;
     }
+
+    ::selection {
+      background:transparent;
+    }
   </style>
 </head>
 <body>
@@ -26,51 +30,22 @@
 <script src="./assets/svift.min.js"></script>
 <script type="text/javascript">
 
-  var data = {
-    "params":{
-      "title":"Arbeitslosenquite 2009 bis 2017",
-      "source":"",
-      "custom_image_size":[],
-      "theme":"default",
-      "styles":{},
-      "annotations":[]
-    },
-    "vis":{
-      "type":"barchart"
-    },
-    "data":{
-      "columns":["Jahr","Wert"],
-      "types":["date","int"],
-      "data":[
-        [2017,3.9],
-        [2016,4.1],
-        [2015,4.6],
-        [2014,5.0],
-        [2013,5.2],
-        [2012,5.5],
-        [2011,5.9],
-        [2010,7.1],
-        [2009,7.8]
-      ]
-    }
-  };
-
   function clear(){
     d3.select('#container').selectAll('*').remove();
   }
 
   var v;
 
-  function vis(callback){
+  function vis(data, callback){
     d3.select('body').append('span').text('Hello World');
     v = SVIFT.vis.columnchart(data, d3.select('#container'));
     v.init();
     setTimeout(function(){ callback(true); }, 10);
   }
 
-  function init(callback){
-    v.start();
-    setTimeout(function(){ callback(true); }, 2000); 
+  function init(step, callback){
+    v.goTo(step);
+    setTimeout(function(){ callback(step); }, 10);
   }
 
   function play(){
@@ -79,6 +54,43 @@
 
   function goto(t){
     v.goTo(t);
+  }
+
+  function getSVG(){
+
+    var axis_groups = d3.selectAll('g[text-anchor="middle"]');
+    axis_groups.selectAll('text').attr('text-anchor','middle');
+    reCalcD(axis_groups);
+
+    axis_groups = d3.selectAll('g[text-anchor="end"]');
+    axis_groups.selectAll('text').attr('text-anchor','end');
+    reCalcD(axis_groups);
+
+    return d3.select('#container').html();
+  }
+
+  function reCalcD(axis){
+    axis.each(function(d){
+      var axis = d3.select(this);
+      var size = axis.attr('font-size');
+      axis.selectAll('text').each(function(d){
+        var obj = d3.select(this);
+        ['y','x'].forEach(function(attr){
+          var val = obj.attr('d'+attr);
+          if(val){
+            if(val.indexOf('em')>=0){
+              val = parseFloat(val.substr(0,val.length-2))*size;
+            }
+            obj.attr('d'+attr, 0);
+            var tval = obj.attr(attr);
+            if(tval){
+              val += parseFloat(tval);
+            }
+            obj.attr(attr, val);
+          }
+        })
+      });
+    })
   }
 
 </script>

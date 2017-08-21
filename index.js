@@ -1,8 +1,4 @@
-var secret = '93z8heodsa'
-
-if(process.argv.length >= 3){
-  secret = process.argv[2]
-}
+var config = require('./config.json')
 
 //var render = require('svift-render'),
 var express = require('express'),
@@ -87,9 +83,9 @@ app.get("/status/:id", function(req, res) {
 
 //send a render job 
 app.post("/render", function(req, res) {
-  setTimeout(function(){
-    res.status(200).send(JSON.stringify(req.body))  
-  }, 3000)
+  queue.addJob(req.body, function(id){
+    res.status(200).send(id)
+  })
 })
 
 //status of the render pipeline
@@ -99,21 +95,18 @@ app.get("/status", function (req, res) {
   })
 })
 
-app.get("/" + secret + "/vis", function (req, res) {
+app.get("/" + config.secret + "/vis\.:ext?", function (req, res) {
   res.sendFile(__dirname + '/http/vis.html')
 })
 
-app.get("/" + secret + "/vis.html", function (req, res) {
-  res.sendFile(__dirname + '/http/vis.html')
-})
-
-app.get("/" + secret + "/kill", function (req, res) {
+app.get("/" + config.secret + "/kill", function (req, res) {
   queue.exit()
   db.close()
+  res.status(200).send('exit')
   process.exit()
 })
 
-app.get("/" + secret + "/assets/:file", function (req, res) {
+app.get("/" + config.secret + "/assets/:file", function (req, res) {
   res.sendFile(__dirname + '/http/assets/'+req.params.file)
 })
 
