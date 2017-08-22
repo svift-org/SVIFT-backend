@@ -9,7 +9,8 @@ setTimeout(function (){
     url:     'http://localhost:5000/render',
     json:    {
       "params":{
-        "dev":true
+        "dev":true,
+        "duration":100
       },
       "vis":{
         "type":"columnchart"
@@ -59,7 +60,7 @@ setTimeout(function (){
       exit();
     }
   })
-}, 5000)
+}, 5) //000
 
 function exit(){
   request.get({
