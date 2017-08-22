@@ -18,7 +18,7 @@
     "express-session": "^1.15.4",
     "request": "^2.81.0",
     "sequelize": "^4.4.2",
-    "sqlite3": "^3.1.8",
+    "sqlite3": "^3.1.9",
     "svift-queue": "git+ssh://git@bitbucket.org/svift/queue-module.git",
     "svift-render": "git+ssh://git@bitbucket.org/svift/render-module.git",
     "uuid": "^3.1.0"
