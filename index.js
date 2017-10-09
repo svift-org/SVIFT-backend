@@ -1,11 +1,10 @@
 var config = require('./config.json')
 
-//var render = require('svift-render'),
 var express = require('express'),
   bodyParser = require('body-parser'),
   Sequelize = require('sequelize'),
   session = require('express-session'),
-  sqlite3 = require('sqlite3').verbose()
+  sqlite3 = require('sqlite3')//.verbose() // > only for dev
 
 const uuidv1 = require('uuid/v1')
 
@@ -22,7 +21,8 @@ var sequelize = new Sequelize(
   "FdL@=J2&D8+aM2", 
   {
     "dialect": "sqlite",
-    "storage": "./svift_session_db.sqlite"
+    "storage": "./svift_session_db.sqlite",
+    "logging": false
   }
 );
 
@@ -30,8 +30,8 @@ var store = new SequelizeStore({
   db: sequelize
 });
 
-var db = new sqlite3.Database('svift_session_db.sqlite');
-queue.init(db, function(){ /*init done*/ })
+var db = new sqlite3.Database('svift_session_db.sqlite').configure('trace', function(t){ console.log('t',t); });
+queue.init(db, __dirname, function(){ /*init done*/ })
  
 // configure express 
 var app = express()
@@ -72,6 +72,7 @@ app.get("/hello", function(req, res) {
 });
 
 //status of a render job
+//TODO: Test if this is better done with SOCKET.IO
 app.get("/status/:id", function(req, res) {
   queue.jobStat(req.params.id, function(err, stat){
     if(err){
