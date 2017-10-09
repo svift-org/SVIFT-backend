@@ -1,4 +1,74 @@
-var xmlhttp = new XMLHttpRequest();
+<!DOCTYPE html>
+<head>
+  <meta charset="utf-8">
+</head>
+<body>
+
+<!-- <script src="libs/d3.v4.min.js"></script> -->
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<script type="text/javascript">
+
+
+var output = {
+  "params":{
+    "dev":true
+  },
+  "vis":{
+    "type":"barchart",
+    "title":"Barchart"
+  },
+  "data":{
+    "columns":["Jahr","Wert"],
+    "types":["date","int"],
+    "data":[
+      [2017,3.9],
+      [2016,4.1],
+      [2015,4.6],
+      [2014,5.0],
+      [2013,5.2],
+      [2012,5.5],
+      [2011,5.9],
+      [2010,7.1],
+      [2009,7.8]
+    ]
+  }
+};
+
+//The request will return an ID
+
+var inter = null;
+
+d3.request('http://localhost:5000/render')
+    .header("Content-Type", "application/json")
+    .mimeType("application/json")
+    .post(
+      JSON.stringify(output),
+      function(err, rawData){
+        inter = setInterval(function(){
+          d3.request('http://localhost:5000/status/'+rawData.response).get(function(err, data){ console.log(data.response); if(JSON.parse(data.response).status==2){ clearInterval(inter); } });
+        }, 200);
+      }
+  );
+
+    //This ID can then be used to poll the backend every 200 - milliseconds, in order to get the status of the rendering (right now this only returns an output when everything is done, this will be my (SEB) TODO for the weekend to send detailed progress information, but it will be something like this:
+
+    //for each type the result is 0-1 (1 = done)
+
+    /*var feedback = {
+      svg:0.5,
+      png:1,
+      html:1,
+      ...
+    };
+
+    var xmlhttp = new XMLHttpRequest();
 xmlhttp.open("POST", "http://localhost:5000/render");
 xmlhttp.setRequestHeader("Content-Type", "application/json");
 xmlhttp.send(JSON.stringify({param1:"Hello", param2:"World"}));
+
+    //The ID is also equivalent to the permanent (7 day) url: svift.xyz/?/ID/ (index.html) > the index.html is actually not yet there, but i (SEB) will also take care of this...
+
+  */
+</script>
+</body>
+</html>

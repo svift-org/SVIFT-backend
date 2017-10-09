@@ -12,13 +12,13 @@
     "url": "git+ssh://git@bitbucket.org/svift/svift-backend.git"
   },
   "dependencies": {
-    "body-parser": "^1.17.2",
+    "body-parser": "^1.18.2",
     "connect-session-sequelize": "^4.1.0",
-    "express": "^4.15.3",
-    "express-session": "^1.15.4",
-    "request": "^2.81.0",
-    "sequelize": "^4.4.2",
-    "sqlite3": "^3.1.9",
+    "express": "^4.16.1",
+    "express-session": "^1.15.6",
+    "request": "^2.83.0",
+    "sequelize": "^4.13.6",
+    "sqlite3": "^3.1.13",
     "svift-queue": "git+ssh://git@bitbucket.org/svift/queue-module.git",
     "svift-render": "git+ssh://git@bitbucket.org/svift/render-module.git",
     "uuid": "^3.1.0"
