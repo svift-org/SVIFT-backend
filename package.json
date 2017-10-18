@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "node index.js | node ./tests/index.js",
-    "postinstall": "wget -O ./http/assets/d3.v4.min.js \"d3js.org/d3.v4.min.js\" && wget -O ./http/assets/svift.min.js \"https://raw.githubusercontent.com/svift-org/test/master/svift.min.js\""
+    "_postinstall": "wget -O ./http/assets/d3.v4.min.js \"d3js.org/d3.v4.min.js\" && wget -O ./http/assets/svift.min.js \"https://raw.githubusercontent.com/svift-org/test/master/svift.min.js\""
   },
   "repository": {
     "type": "git",

@@ -21,6 +21,7 @@
       background:transparent;
     }
   </style>
+  <link href="https://fonts.googleapis.com/css?family=Merriweather|Poppins|Roboto+Mono" rel="stylesheet">
 </head>
 <body>
 
@@ -38,7 +39,7 @@
 
   function vis(data, callback){
     d3.select('body').append('span').text('Hello World');
-    v = SVIFT.vis.columnchart(data, d3.select('#container'));
+    v = SVIFT.vis[data.vis.type](data, d3.select('#container'));
     v.init();
     setTimeout(function(){ callback(true); }, 10);
   }

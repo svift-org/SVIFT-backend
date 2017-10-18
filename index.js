@@ -91,9 +91,11 @@ app.get("/status/:id", function(req, res) {
 
 //send a render job 
 app.post("/render", function(req, res) {
-  queue.addJob(req.body, function(id){
-    res.status(200).send(id)
-  })
+  if(JSON.stringify(req.body).length > 0){
+    queue.addJob(req.body, function(id){
+      res.status(200).send(id)
+    })
+  }
 })
 
 //status of the render pipeline
