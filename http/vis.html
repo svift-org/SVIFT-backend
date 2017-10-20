@@ -38,7 +38,7 @@
   var v;
 
   function vis(data, callback){
-    d3.select('body').append('span').text('Hello World');
+    clear();
     v = SVIFT.vis[data.vis.type](data, d3.select('#container'));
     v.init();
     setTimeout(function(){ callback(true); }, 10);
