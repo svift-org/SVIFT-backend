@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/svift/svift-backend.git"
+    "url": "git+https://git@github.com/svift-org/svift-backend.git"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
@@ -19,11 +19,11 @@
     "request": "^2.83.0",
     "sequelize": "^4.13.6",
     "sqlite3": "^3.1.13",
-    "svift-queue": "git+ssh://git@bitbucket.org/svift/queue-module.git",
-    "svift-render": "git+ssh://git@bitbucket.org/svift/render-module.git",
+    "svift-queue": "git+https://git@github.com/svift-org/queue-module.git",
+    "svift-render": "git+https://git@github.com/svift-org/render-module.git",
     "uuid": "^3.1.0"
   },
   "author": "Sebastian Meier",
   "license": "MIT",
-  "homepage": "https://bitbucket.org/svift/svift-backend#readme"
+  "homepage": "https://github.com/svift-org/svift-backend#readme"
 }
