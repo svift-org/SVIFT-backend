@@ -1,7 +1,7 @@
 var config = require('./config.json')
 
 var express = require('express'),
-  express = require('fs'),
+  fs = require('fs'),
   bodyParser = require('body-parser'),
   Sequelize = require('sequelize'),
   session = require('express-session'),
@@ -39,9 +39,10 @@ var app = express()
 
 //output folder
 if (!fs.existsSync('./output')) {
-  fs.mkdirSync('./output');
+  fs.mkdirSync('./output')
 }
-app.use(express.static('output'));
+
+app.use('output', express.static('output'))
 
 app.use(session({
   genid: function(req) {
