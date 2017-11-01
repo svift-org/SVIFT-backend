@@ -1,6 +1,7 @@
 var config = require('./config.json')
 
 var express = require('express'),
+  express = require('fs'),
   bodyParser = require('body-parser'),
   Sequelize = require('sequelize'),
   session = require('express-session'),
@@ -35,6 +36,12 @@ queue.init(db, __dirname, function(){ /*init done*/ })
  
 // configure express 
 var app = express()
+
+//output folder
+if (!fs.existsSync('./output')) {
+  fs.mkdirSync('./output');
+}
+app.use(express.static('output'));
 
 app.use(session({
   genid: function(req) {

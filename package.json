@@ -18,6 +18,7 @@
     "connect-session-sequelize": "^4.1.0",
     "express": "^4.16.1",
     "express-session": "^1.15.6",
+    "fs": "0.0.1-security",
     "request": "^2.83.0",
     "sequelize": "^4.13.6",
     "sqlite3": "^3.1.13",
