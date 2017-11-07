@@ -5,7 +5,7 @@ var express = require('express'),
   bodyParser = require('body-parser'),
   Sequelize = require('sequelize'),
   session = require('express-session'),
-  sqlite3 = require('sqlite3')//.verbose() // > only for dev
+  pg = require('pg')//.verbose() // > only for dev
 
 const uuidv1 = require('uuid/v1')
 
@@ -17,13 +17,13 @@ var SequelizeStore = require('connect-session-sequelize')(session.Store);
  
 // create database
 var sequelize = new Sequelize(
-  "svift_session_db",
-  "svift",
-  "FdL@=J2&D8+aM2", 
+  process.env.DATABASE_URL,
   {
-    "dialect": "sqlite",
-    "storage": "./svift_session_db.sqlite",
-    "logging": false
+    dialect:  'postgres',
+    protocol: 'postgres',
+//    port:     match[4],
+//    host:     match[3],
+    logging:  true
   }
 );
 
@@ -31,8 +31,19 @@ var store = new SequelizeStore({
   db: sequelize
 });
 
-var db = new sqlite3.Database('svift_session_db.sqlite').configure('trace', function(t){ console.log('t',t); });
-queue.init(db, __dirname, function(){ /*init done*/ })
+var db;
+
+pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+  if(err){
+    console.log(err)
+  }
+
+  db = client
+
+  queue.init(db, __dirname, function(){ /*init done*/ })  
+
+});
+
  
 // configure express 
 var app = express()
