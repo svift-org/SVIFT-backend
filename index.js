@@ -101,7 +101,7 @@ app.get("/status", function (req, res) {
   })
 })
 
-app.get("/" + config.secret + "/vis\.:ext?", function (req, res) {
+app.get("/" + process.env.EXPRESS_SECRET + "/vis\.:ext?", function (req, res) {
   res.sendFile(__dirname + '/http/vis.html')
 })
 
