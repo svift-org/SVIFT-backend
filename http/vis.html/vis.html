@@ -1,0 +1,107 @@
+<!DOCTYPE html><html><head>
+  <meta charset="utf-8">
+  <style type="text/css">
+    body{
+      margin:0;
+      padding:0;
+      border:0;
+      width:100%;
+      height:100vh;
+      overflow:hidden;
+    }
+
+    html{
+      overflow:hidden;
+    }
+
+    html::-webkit-scrollbar,body::-webkit-scrollbar{
+     display: none;
+    }
+
+    #container{
+      width:100%;
+      height:100vh;
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    ::selection {
+      background:transparent;
+    }
+  </style>
+  <link rel="stylesheet" href="../assets/style/css_family_Merriweather|Poppins|Roboto_Mono">
+</head>
+<body>
+
+<div id="container"></div>
+
+<script src="./assets/d3.v4.min.js"></script>
+<script src="./assets/svift.min.js"></script>
+<script type="text/javascript">
+
+  function clear(){
+    d3.select('#container').selectAll('*').remove();
+  }
+
+  var v;
+
+  function vis(data, callback){
+    clear();
+    v = SVIFT.vis[data.vis.type](data, d3.select('#container'));
+    v.init();
+    setTimeout(function(){ callback(true); }, 10);
+  }
+
+  function init(step, callback){
+    v.goTo(step);
+    setTimeout(function(){ callback(step); }, 10);
+  }
+
+  function play(){
+    v.play();
+  }
+
+  function goto(t){
+    v.goTo(t);
+  }
+
+  function getSVG(){
+
+    var axis_groups = d3.selectAll('g[text-anchor="middle"]');
+    axis_groups.selectAll('text').attr('text-anchor','middle');
+    reCalcD(axis_groups);
+
+    axis_groups = d3.selectAll('g[text-anchor="end"]');
+    axis_groups.selectAll('text').attr('text-anchor','end');
+    reCalcD(axis_groups);
+
+    return d3.select('#container').html();
+  }
+
+  function reCalcD(axis){
+    axis.each(function(d){
+      var axis = d3.select(this);
+      var size = axis.attr('font-size');
+      axis.selectAll('text').each(function(d){
+        var obj = d3.select(this);
+        ['y','x'].forEach(function(attr){
+          var val = obj.attr('d'+attr);
+          if(val){
+            if(val.indexOf('em')>=0){
+              val = parseFloat(val.substr(0,val.length-2))*size;
+            }
+            obj.attr('d'+attr, 0);
+            var tval = obj.attr(attr);
+            if(tval){
+              val += parseFloat(tval);
+            }
+            obj.attr(attr, val);
+          }
+        })
+      });
+    })
+  }
+
+</script>
+
+</body></html>
