@@ -1,5 +1,10 @@
-var imports = require("google-font-import");
- 
+var imports = require("google-font-import"),
+	fs = require('fs')
+
+if (!fs.existsSync('./http/assets')) {
+  fs.mkdirSync('./http/assets')
+}
+
 var opts = {
   src: './http/template/vis.html',
   htmlpath: './http',
