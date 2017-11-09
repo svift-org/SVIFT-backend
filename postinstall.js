@@ -7,4 +7,8 @@ var opts = {
   stylepath: './http/assets/style'
 };
  
-imports(opts).then(function () { });
+imports(opts).then(function () {
+
+	console.log('google fonts download')
+
+});
