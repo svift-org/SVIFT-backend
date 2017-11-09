@@ -1,50 +1,28 @@
-var config = require('./config.json')
-
 var express = require('express'),
   fs = require('fs'),
   bodyParser = require('body-parser'),
-  Sequelize = require('sequelize'),
-  session = require('express-session'),
-  pg = require('pg')//.verbose() // > only for dev
+  session = require('express-session')
 
+const { Client } = require('pg')
 const uuidv1 = require('uuid/v1')
 
 var state = 'starting',
   queue = require('svift-queue')
 
-// initalize sequelize with session store 
-var SequelizeStore = require('connect-session-sequelize')(session.Store);
- 
-// create database
-var sequelize = new Sequelize(
-  process.env.DATABASE_URL,
-  {
-    dialect:  'postgres',
-    protocol: 'postgres',
-//    port:     match[4],
-//    host:     match[3],
-    logging:  true
-  }
-);
+const db = new Client({ connectionString: process.env.DATABASE_URL })
+db.connect()
 
-var store = new SequelizeStore({
-  db: sequelize
-});
+queue.init(db, __dirname, function(){  })  
 
-var db;
+db.query('DROP TABLE "session";'+
+  'CREATE TABLE "session" ('+
+    '"sid" varchar NOT NULL COLLATE "default",'+
+    '"sess" json NOT NULL,'+
+    '"expire" timestamp(6) NOT NULL'+
+  ')'+
+  'WITH (OIDS=FALSE);'+
+  'ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;');
 
-pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-  if(err){
-    console.log(err)
-  }
-
-  db = client
-
-  queue.init(db, __dirname, function(){ /*init done*/ })  
-
-});
-
- 
 // configure express 
 var app = express()
 
@@ -59,14 +37,13 @@ app.use(session({
   genid: function(req) {
     return uuidv1() // use UUIDs for session IDs
   },
-  secret: 'Uf?NWRT9thYs4c+G3Rp7;dVL9CQLtxtsPKJcQq>sMrqfffaBZbMD]s;UU+k2Bwot',
-  store: store,
+  store: new (require('connect-pg-simple')(session))(),
+  secret: process.env.COOKIE_SECRET,
   resave: false,
   saveUninitialized: true,
-  proxy: true // if you do SSL outside of node. 
+  //proxy: true, // if you do SSL outside of node. 
+  cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days 
 }))
-
-store.sync()
 
 app.use(bodyParser.json())
 
@@ -128,14 +105,15 @@ app.get("/" + config.secret + "/vis\.:ext?", function (req, res) {
   res.sendFile(__dirname + '/http/vis.html')
 })
 
-app.get("/" + config.secret + "/kill", function (req, res) {
+app.get("/" + process.env.EXPRESS_SECRET + "/kill", function (req, res) {
   queue.exit()
-  db.close()
+  db.end()
+
   res.status(200).send('exit')
   process.exit()
 })
 
-app.get("/" + config.secret + "/assets/:file", function (req, res) {
+app.get("/" + process.env.EXPRESS_SECRET + "/assets/:file", function (req, res) {
   res.sendFile(__dirname + '/http/assets/'+req.params.file)
 })
 
