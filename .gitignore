@@ -1,4 +1,5 @@
 node_modules
 output/*
 http/assets/*
+http/vis.html
 .DS_Store
