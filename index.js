@@ -14,7 +14,7 @@ db.connect()
 
 queue.init(db, __dirname, function(){  })  
 
-db.query('DROP TABLE "session";'+
+db.query('DROP TABLE IF EXISTS "session";'+
   'CREATE TABLE "session" ('+
     '"sid" varchar NOT NULL COLLATE "default",'+
     '"sess" json NOT NULL,'+
