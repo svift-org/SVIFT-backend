@@ -120,12 +120,12 @@ app.get("/" + process.env.EXPRESS_SECRET + "/kill", function (req, res) {
 
 app.get("/" + process.env.EXPRESS_SECRET + "/db/export", function (req, res) {
   
-  db.query("SELECT id, job_id, status, added, start_time, end_time FROM svift_queue ORDER BY id", function(err, result){
+  db.query("SELECT id, job_id, status, to_timestamp(added, 'YYYY-MM-DD HH:MI:SS'), to_timestamp(start_time, 'YYYY-MM-DD HH:MI:SS'), to_timestamp(end_time, 'YYYY-MM-DD HH:MI:SS') FROM svift_queue ORDER BY id", function(err, result){
     if(err){
       console.log(err)
     }
 
-    let cols = ['id','job_id','status','added','start','end']
+    let cols = ['id','job_id','status','added','start_time','end_time']
     let rows = []
 
     result.rows.forEach(r=>{
