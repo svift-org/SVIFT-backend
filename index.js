@@ -136,7 +136,7 @@ app.get("/" + process.env.EXPRESS_SECRET + "/db/export", function (req, res) {
       rows.push(row)
     })
 
-    rest.status(200).send(utils.array2csv(rows, cols))
+    res.status(200).send(utils.array2csv(rows, cols))
   })
 })
 
