@@ -21,7 +21,11 @@ db.query('DROP TABLE IF EXISTS "session";'+
     '"expire" timestamp(6) NOT NULL'+
   ')'+
   'WITH (OIDS=FALSE);'+
-  'ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;');
+  'ALTER TABLE "session" ADD CONSTRAINT "session_pkey" PRIMARY KEY ("sid") NOT DEFERRABLE INITIALLY IMMEDIATE;', function(err){
+    if(err){
+      console.log(err)
+    }
+  });
 
 // configure express 
 var app = express()
