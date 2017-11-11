@@ -1,6 +1,7 @@
 var express = require('express'),
   fs = require('fs'),
   bodyParser = require('body-parser'),
+  utils = require('svift-utils'),
   session = require('express-session')
 
 const { Client } = require('pg')
@@ -116,6 +117,27 @@ app.get("/" + process.env.EXPRESS_SECRET + "/kill", function (req, res) {
   res.status(200).send('exit')
   process.exit()
 })
+
+app.get("/" + process.env.EXPRESS_SECRET + "/db/export", function (req, res) {
+  
+  db.query("SELECT id, job_id, status , added, start_time, end_time FROM svift_queue ORDER BY id", function(err, result){
+
+    let cols = ['id','job_id','status','added','start','end']
+    let rows = []
+
+    result.rows.forEach(r=>{
+      let row = []
+      cols.forEach(c=>{
+        row.push(r[c])
+      })
+      rows.push(row)
+    })
+
+    rest.status(200).send(utils.array2csv(rows, cols))
+  })
+})
+
+//TODO: merge the three below into one regex
 
 app.get("/" + process.env.EXPRESS_SECRET + "/assets/:file", function (req, res) {
   res.sendFile(__dirname + '/http/assets/'+req.params.file)

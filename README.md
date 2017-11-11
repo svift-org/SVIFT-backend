@@ -40,3 +40,10 @@ Add environmental vars:
 - S3_BUCKET
 - S3_BUCKET_NAME
 - S3_FOLDER
+- HEROKU_URL
+
+If there are problems with dependencies, sometimes turning off the npm cache helps:
+
+´´
+heroku config:set NODE_MODULES_CACHE=false -a svift-backend-dev
+´´
