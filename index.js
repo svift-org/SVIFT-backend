@@ -154,6 +154,18 @@ app.get("/" + process.env.EXPRESS_SECRET + "/assets/style/:file", function (req,
   res.sendFile(__dirname + '/http/assets/style/'+req.params.file)
 })
 
+app.get("/" + process.env.EXPRESS_SECRET + "/vis/assets/:file", function (req, res) {
+  res.sendFile(__dirname + '/http/assets/'+req.params.file)
+})
+
+app.get("/" + process.env.EXPRESS_SECRET + "/vis/assets/fonts/:file", function (req, res) {
+  res.sendFile(__dirname + '/http/assets/fonts/'+req.params.file)
+})
+
+app.get("/" + process.env.EXPRESS_SECRET + "/vis/assets/style/:file", function (req, res) {
+  res.sendFile(__dirname + '/http/assets/style/'+req.params.file)
+})
+
 
 var port = process.env.PORT || 8080;
 app.listen(port, function() {
