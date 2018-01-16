@@ -10,7 +10,7 @@
     "start": "node index.js",
     "web": "node index.js",
     "test": "node index.js | node ./tests/index.js",
-    "postinstall": "node postinstall.js && wget -O ./http/assets/d3.v4.min.js \"d3js.org/d3.v4.min.js\" && wget -O ./http/assets/svift.min.js \"https://raw.githubusercontent.com/svift-org/SVIFT-frontend/master/build/svift.min.js\""
+    "postinstall": "node postinstall.js && curl -o ./http/assets/d3.v4.min.js \"https://d3js.org/d3.v4.min.js\" && curl -o ./http/assets/svift.min.js \"https://raw.githubusercontent.com/svift-org/SVIFT-frontend/master/build/svift.min.js\" && curl -o ./http/assets/vis_types.json \"https://raw.githubusercontent.com/svift-org/SVIFT-frontend/master/build/vis_types.json\""
   },
   "repository": {
     "type": "git",
