@@ -47,16 +47,16 @@
 
   var v;
 
-  function vis(data){
+  function vis(data, callback){
     clear();
     v = SVIFT.vis[data.vis.type](data, d3.select('#container'));
     v.init();
-    return true;
+    setTimeout(function(){ callback(true); }, 10);
   }
 
   function init(step, callback){
     v.goTo(step);
-    callback(step);
+    setTimeout(function(){ callback(step); }, 10);
   }
 
   function play(){
@@ -66,7 +66,7 @@
 
   function reset(callback){
     v.reset();
-    callback();
+    setTimeout(function(){ callback(); }, 1);
   }
 
   function goto(t){
@@ -76,7 +76,7 @@
 
   function setScale(s, callback){
     v.setScale(s);
-    callback();
+    setTimeout(function(){ callback(); }, 1);
   }
 
   function callback(){
