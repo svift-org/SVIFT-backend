@@ -47,32 +47,40 @@
 
   var v;
 
-  function vis(data, callback){
+  function vis(data){
     clear();
     v = SVIFT.vis[data.vis.type](data, d3.select('#container'));
     v.init();
-    setTimeout(function(){ callback(true); }, 10);
+    return true;
   }
 
   function init(step, callback){
     v.goTo(step);
-    setTimeout(function(){ callback(step); }, 10);
+    callback(step);
   }
 
   function play(){
     v.play();
+    return true;
   }
 
-  function reset(){
+  function reset(callback){
     v.reset();
+    callback();
   }
 
   function goto(t){
     v.goTo(t);
+    return true;
   }
 
-  function setScale(s){
+  function setScale(s, callback){
     v.setScale(s);
+    callback();
+  }
+
+  function callback(){
+    return true;
   }
 
   function getSVG(){
