@@ -10,6 +10,11 @@ const uuidv1 = require('uuid/v1')
 var state = 'starting',
   queue = require('svift-queue')
 
+let vis_types = JSON.parse(fs.readFileSync('./http/assets/vis_types.json', 'utf8'))
+  vis_types.forEach((v,i)=>{
+    vis_types[i] = v.replace('svift-vis-','')
+  })
+
 const db = new Client({ connectionString: process.env.DATABASE_URL })
 db.connect()
 
@@ -93,9 +98,15 @@ app.get("/status/:id", function(req, res) {
 //send a render job 
 app.post("/render", function(req, res) {
   if(JSON.stringify(req.body).length > 0){
-    queue.addJob(req.body, function(id){
-      res.status(200).send(id)
-    })
+    if(vis_types.indexOf(req.body.vis.type)==-1){
+      res.status(404).send('vis.type ('+req.body.vis.type+') unknown')
+    }else{
+      queue.addJob(req.body, function(id){
+        res.status(200).send(id)
+      })
+    }
+  }else{
+    res.status(204).send('empty request')
   }
 })
 
