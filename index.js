@@ -50,7 +50,8 @@ app.use(session({
   store: new (require('connect-pg-simple')(session))(),
   secret: process.env.COOKIE_SECRET,
   resave: false,
-  saveUninitialized: true,
+  name:'svift-session-cookie',
+  saveUninitialized: false,
   //proxy: true, // if you do SSL outside of node. 
   cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 days 
 }))
