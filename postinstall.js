@@ -16,6 +16,7 @@ imports(opts).then(function () {
 
 	fs.readdirSync(__dirname + '/http/assets/style').forEach(file => {
       if(file.indexOf('css_family') > -1){
+        console.log('READ FILE', file);
         let css = fs.readFileSync(__dirname + '/http/assets/style/'+file, 'utf8'),
         	vis = fs.readFileSync(__dirname + '/http/vis.html', 'utf8'),
         	v1 = vis.indexOf('<link rel="stylesheet" href="assets/style/css_family'),
