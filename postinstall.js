@@ -14,6 +14,8 @@ var opts = {
  
 imports(opts).then(function () {
 
+  console.log(__dirname + '/http/assets/style');
+
 	fs.readdirSync(__dirname + '/http/assets/style').forEach(file => {
       console.log('READDIR', file)
 
