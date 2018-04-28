@@ -27,7 +27,7 @@ imports(opts).then(function () {
 
         fs.writeFileSync('./http/vis.html', nvis, 'utf8')
 
-        vis.substr()
+        
 		        
       }
     })
