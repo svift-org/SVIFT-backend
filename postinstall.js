@@ -7,7 +7,7 @@ if (!fs.existsSync(__dirname + '/http/assets')) {
 
 var opts = {
   src: __dirname + '/http/template/vis.html',
-  htmlpath: __dirname + '/http',
+  htmlpath: __dirname + '/http/dump',
   fontpath: __dirname + '/http/assets/fonts',
   stylepath: __dirname + '/http/assets/style'
 };
@@ -18,8 +18,8 @@ imports(opts).then(function () {
       if(file.indexOf('css_family') > -1){
         console.log('READ FILE', file);
         let css = fs.readFileSync(__dirname + '/http/assets/style/'+file, 'utf8'),
-        	vis = fs.readFileSync(__dirname + '/http/vis.html', 'utf8'),
-        	v1 = vis.indexOf('<link rel="stylesheet" href="assets/style/css_family'),
+        	vis = fs.readFileSync(__dirname + '/http/template/vis.html', 'utf8'),
+        	v1 = vis.indexOf('<link rel="stylesheet" href="https://fonts.googleapis'),
         	v2 = vis.indexOf('>', v1)
 
         css = css.split('../fonts').join('./assets/fonts')
