@@ -82,7 +82,7 @@ app.get("/hello", function(req, res) {
 
   data.count++
 
-  res.sendStatus(200).send(data.count.toString());
+  res.status(200).send(data.count.toString());
 });
 
 //status of a render job
@@ -92,37 +92,34 @@ app.get("/status/:id", function(req, res) {
     if(err){
       console.log(err)
     }
-    res.sendStatus(200).send(JSON.stringify(stat))
+    res.status(200).send(JSON.stringify(stat))
   })
 })
 
 //Make sure options are not handled as post requests
 app.options("/*", function(req, res, next){
-  res.header('Access-Control-Allow-Origin', '*');
-  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, Content-Length, X-Requested-With');
-  res.send(200);
+  res.sendStatus(200);
 });
 
 //send a render job 
 app.post("/render", function(req, res) {
   if(JSON.stringify(req.body).length > 0){
     if(vis_types.indexOf(req.body.vis.type)==-1){
-      res.sendStatus(404).send('vis.type ('+req.body.vis.type+') unknown')
+      res.status(404).send('vis.type ('+req.body.vis.type+') unknown')
     }else{
       queue.addJob(req.body, function(id){
-        res.sendStatus(200).send(id)
+        res.status(200).send(id)
       })
     }
   }else{
-    res.sendStatus(204).send('empty request')
+    res.status(204).send('empty request')
   }
 })
 
 //status of the render pipeline
 app.get("/status", function (req, res) {
   queue.stats(function(stats){
-    res.sendStatus(200).send(JSON.stringify(stats))
+    res.status(200).send(JSON.stringify(stats))
   })
 })
 
@@ -134,7 +131,7 @@ app.get("/" + process.env.EXPRESS_SECRET + "/kill", function (req, res) {
   queue.exit()
   db.end()
 
-  res.sendStatus(200).send('exit')
+  res.status(200).send('exit')
   process.exit()
 })
 
@@ -156,7 +153,7 @@ app.get("/" + process.env.EXPRESS_SECRET + "/db/export", function (req, res) {
       rows.push(row)
     })
 
-    res.sendStatus(200).send(utils.array2csv(rows, cols))
+    res.status(200).send(utils.array2csv(rows, cols))
   })
 })
 
