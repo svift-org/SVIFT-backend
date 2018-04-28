@@ -47,3 +47,9 @@ If there are problems with dependencies, sometimes turning off the npm cache hel
 ´´
 heroku config:set NODE_MODULES_CACHE=false -a svift-backend-dev
 ´´
+
+## Fonts
+
+Goto http/template/vis.html and update the google font string. 
+Then run install/postinstall
+Copy the output of http/assets/style/CURRENT_FONT_SET into the frontend fonts.scss file.

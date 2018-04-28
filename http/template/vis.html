@@ -31,7 +31,7 @@
       background:transparent;
     }
   </style>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Merriweather|Poppins|Roboto+Mono:700|Patua+One|Noto+Serif:700|Open+Sans:700" type="text/css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Mono|IBM+Plex+Sans+Condensed:400,700|IBM+Plex+Serif:400,700|Roboto+Condensed:400,700|Roboto+Mono|Roboto+Slab:400,700" type="text/css">
 </head>
 <body>
 
@@ -84,6 +84,13 @@
   }
 
   function getSVG(){
+
+    // javascript:javascript: (function () { 
+    //   var e = document.createElement('script'); 
+    //   e.setAttribute('src', 'https://nytimes.github.io/svg-crowbar/svg-crowbar-2.js'); 
+    //   e.setAttribute('class', 'svg-crowbar'); 
+    //   document.body.appendChild(e); 
+    // })();
 
     var axis_groups = d3.selectAll('g[text-anchor="middle"]');
     axis_groups.selectAll('text').attr('text-anchor','middle');

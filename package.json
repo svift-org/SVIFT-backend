@@ -19,16 +19,16 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "connect-pg-simple": "^4.2.1",
-    "express": "^4.16.1",
+    "express": "^4.16.3",
     "express-session": "^1.15.6",
     "fs": "0.0.1-security",
     "google-font-import": "^0.1.2",
     "pg": "^7.4.0",
-    "request": "^2.83.0",
+    "request": "^2.85.0",
     "svift-queue": "git+https://git@github.com/svift-org/queue-module.git",
     "svift-render": "git+https://git@github.com/svift-org/render-module.git",
     "svift-utils": "git+https://git@github.com/svift-org/utils.git",
-    "uuid": "^3.1.0"
+    "uuid": "^3.2.1"
   },
   "author": "Sebastian Meier",
   "license": "MIT",
