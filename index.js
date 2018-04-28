@@ -82,7 +82,7 @@ app.get("/hello", function(req, res) {
 
   data.count++
 
-  res.status(200).send(data.count.toString());
+  res.sendStatus(200).send(data.count.toString());
 });
 
 //status of a render job
@@ -92,7 +92,7 @@ app.get("/status/:id", function(req, res) {
     if(err){
       console.log(err)
     }
-    res.status(200).send(JSON.stringify(stat))
+    res.sendStatus(200).send(JSON.stringify(stat))
   })
 })
 
@@ -108,21 +108,21 @@ app.options("/*", function(req, res, next){
 app.post("/render", function(req, res) {
   if(JSON.stringify(req.body).length > 0){
     if(vis_types.indexOf(req.body.vis.type)==-1){
-      res.status(404).send('vis.type ('+req.body.vis.type+') unknown')
+      res.sendStatus(404).send('vis.type ('+req.body.vis.type+') unknown')
     }else{
       queue.addJob(req.body, function(id){
-        res.status(200).send(id)
+        res.sendStatus(200).send(id)
       })
     }
   }else{
-    res.status(204).send('empty request')
+    res.sendStatus(204).send('empty request')
   }
 })
 
 //status of the render pipeline
 app.get("/status", function (req, res) {
   queue.stats(function(stats){
-    res.status(200).send(JSON.stringify(stats))
+    res.sendStatus(200).send(JSON.stringify(stats))
   })
 })
 
@@ -134,7 +134,7 @@ app.get("/" + process.env.EXPRESS_SECRET + "/kill", function (req, res) {
   queue.exit()
   db.end()
 
-  res.status(200).send('exit')
+  res.sendStatus(200).send('exit')
   process.exit()
 })
 
@@ -156,7 +156,7 @@ app.get("/" + process.env.EXPRESS_SECRET + "/db/export", function (req, res) {
       rows.push(row)
     })
 
-    res.status(200).send(utils.array2csv(rows, cols))
+    res.sendStatus(200).send(utils.array2csv(rows, cols))
   })
 })
 
