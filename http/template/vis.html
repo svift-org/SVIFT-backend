@@ -56,6 +56,7 @@
   }
 
   function init(step, callback){
+    console.log('vis.html:init',step);
     v.goTo(step);
     setTimeout(function(){ callback(null, step); }, 10);
   }
