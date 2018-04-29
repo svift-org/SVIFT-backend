@@ -48,11 +48,10 @@
 
   var v;
 
-  function vis(data, callback){
+  function vis(data){
     clear();
     v = SVIFT.vis[data.vis.type](data, d3.select('#container'));
     v.init();
-    setTimeout(function(){ callback(null, true); }, 10);
   }
 
   function init(step){
@@ -62,22 +61,18 @@
 
   function play(){
     v.play();
-    return true;
   }
 
-  function reset(callback){
+  function reset(){
     v.reset();
-    setTimeout(function(){ callback(null, true); }, 1);
   }
 
   function goto(t){
     v.goTo(t);
-    return true;
   }
 
-  function setScale(s, callback){
+  function setScale(s){
     v.setScale(s);
-    setTimeout(function(){ callback(null, true); }, 1);
   }
 
   function callback(){
