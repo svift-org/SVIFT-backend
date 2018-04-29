@@ -613,10 +613,9 @@
     setTimeout(function(){ callback(null, true); }, 10);
   }
 
-  function init(step, callback){
+  function init(step){
     console.log('vis.html:init',step);
     v.goTo(step);
-    setTimeout(function(){ callback(null, step); }, 10);
   }
 
   function play(){
