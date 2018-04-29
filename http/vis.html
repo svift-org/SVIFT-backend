@@ -595,7 +595,7 @@
 <body>
 
 <div id="container"></div>
-<div id="invisible-count" style="visibility:hidden; position: fixed; top:0;left:0;"></div>
+
 <script src="./assets/d3.v4.min.js"></script>
 <script src="./assets/svift.min.js"></script>
 <script type="text/javascript">
@@ -614,7 +614,6 @@
   }
 
   function init(step){
-    d3.select('#invisible-count').html(step);
     console.log('vis.html:init:'+step);
     v.goTo(step);
   }
@@ -630,7 +629,6 @@
   }
 
   function goto(t){
-    d3.select('#invisible-count').html(t);
     v.goTo(t);
     return true;
   }
