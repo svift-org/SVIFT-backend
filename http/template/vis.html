@@ -57,8 +57,10 @@
   var v;
 
   function togglePixel(){
-    var p = d3.select('#printpixel');
-    p.classed('active', !p.classed('active'));
+    setTimeout(function(){
+      var p = d3.select('#printpixel');
+      p.classed('active', !p.classed('active'));
+    }, 100);
   }
 
   function vis(data, callback){
