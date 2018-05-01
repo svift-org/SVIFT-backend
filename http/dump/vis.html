@@ -32,18 +32,10 @@
   </style>
   <link rel="stylesheet" href="../assets/style/css_family_IBM_Plex_Mono|IBM_Plex_Sans_Condensed_400_700|IBM_Plex_Serif_400_700|Roboto_Condensed_400_700|Roboto_Mono|Roboto_Slab_400_700" type="text/css">
   <link rel="stylesheet" href="./assets/svift.css" type="text/css">
-  <style type="text/css">
-    #printpixel{
-      background-color:#ffffff;
-    }  
-    #printpixel.active{
-      background-color:#fffffe;
-    }
-  </style>
 </head>
 <body>
+
 <div id="container"></div>
-<div id="printpixel" style="position: fixed; top:0; left:0; width:1px; height:1px;"></div>
 
 <script src="./assets/d3.v4.min.js"></script>
 <script src="./assets/svift.min.js"></script>
@@ -55,47 +47,35 @@
 
   var v;
 
-  function togglePixel(){
-    var p = d3.select('#togglePixel');
-    p.classed('active', !p.classed('active'));
-  }
-
-  function vis(data, callback){
+  function vis(data){
     clear();
     v = SVIFT.vis[data.vis.type](data, d3.select('#container'));
     v.init();
-    togglePixel();
-    setTimeout(function(){ callback(null, true); }, 10);
   }
 
   function init(step){
     console.log('vis.html:init:'+step);
     v.goTo(step);
-    togglePixel();
   }
 
   function play(){
     v.play();
-    togglePixel();
-    return true;
   }
 
-  function reset(callback){
+  function reset(){
     v.reset();
-    togglePixel();
-    setTimeout(function(){ callback(null, true); }, 1);
   }
 
   function goto(t){
     v.goTo(t);
-    togglePixel();
-    return true;
   }
 
-  function setScale(s, callback){
+  function setScale(s){
     v.setScale(s);
-    togglePixel();
-    setTimeout(function(){ callback(null, true); }, 1);
+  }
+
+  function resize(){
+    v.preResize();
   }
 
   function callback(){
