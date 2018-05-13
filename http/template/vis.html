@@ -44,6 +44,7 @@
 
   function clear(){
     d3.select('#container').selectAll('*').remove();
+    return true;
   }
 
   var v;
@@ -52,31 +53,38 @@
     clear();
     v = SVIFT.vis[data.vis.type](data, d3.select('#container'));
     v.init();
+    return true;
   }
 
   function init(step){
     console.log('vis.html:init:'+step);
     v.goTo(step);
+    return true;
   }
 
   function play(){
     v.play();
+    return true;
   }
 
   function reset(){
     v.reset();
+    return true;
   }
 
   function goto(t){
     v.goTo(t);
+    return true;
   }
 
   function setScale(s){
     v.setScale(s);
+    return true;
   }
 
   function resize(){
     v.preResize();
+    return true;
   }
 
   function callback(){
@@ -124,7 +132,8 @@
           }
         })
       });
-    })
+    });
+    return true;
   }
 
 </script>
