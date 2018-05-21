@@ -41,8 +41,6 @@ imports(opts).then(function () {
       }
     })
 
-	console.log('postinstall complete')
-
 });
 
 function customize(nvis){
@@ -61,6 +59,10 @@ function customize(nvis){
 
     request(options)
       .then(body => {
+
+        console.log(process.env.CUSTOM)
+        console.log(process.env.GIT_KEY)
+        console.log(body)
 
         const customJSON = JSON.parse(body)
 
@@ -118,6 +120,8 @@ function customize(nvis){
 
           console.log('vis.html customized')
 
+          console.log('postinstall complete')
+
         })
         .catch(err=>{
           console.log(err)
@@ -126,5 +130,7 @@ function customize(nvis){
     .catch(err=>{
       console.log(err)
     })
+  }else{
+      console.log('postinstall complete')
   }
 }
