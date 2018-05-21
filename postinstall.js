@@ -66,8 +66,6 @@ function customize(nvis){
             fs.mkdirSync(__dirname + '/http/assets/custom');
         }
 
-        fs.writeFileSync(__dirname + '/http/assets/custom/custom.json', body)
-
         if (!fs.existsSync(__dirname + '/http/assets/custom/fonts')) {
             fs.mkdirSync(__dirname + '/http/assets/custom/fonts');
         }
@@ -98,12 +96,13 @@ function customize(nvis){
 
         Promise.all(promises).then((data) => {
           
-          let css_name = ''  
+          let css_name = '', logo_name = ''
 
           data.forEach((d,di)=>{
             let filePath = downloads[di].split('/')
             let name = filePath[filePath.length-1]
             if(di == 0) css_name = name
+            if(di == 1) logo_name = name
             if(di<=1){
               fs.writeFileSync(__dirname+'/http/assets/custom/'+name, d)
             }else{
@@ -115,6 +114,10 @@ function customize(nvis){
           nvis = nvis.replace('/*CUSTOMJSON*/', 'custom = '+JSON.stringify(customJSON)+';')
 
           fs.writeFileSync(__dirname + '/http/vis.html', nvis, 'utf8')
+
+          customJSON.logo.url = './assets/custom/' + logo_name
+
+          fs.writeFileSync(__dirname + '/http/assets/custom/custom.json', JSON.stringify(customJSON))
 
           console.log('vis.html customized')
 
