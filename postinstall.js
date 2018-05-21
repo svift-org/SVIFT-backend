@@ -106,7 +106,7 @@ function customize(nvis){
             if(di<=1){
               fs.writeFileSync(__dirname+'/http/assets/custom/'+name, d)
             }else{
-              fs.writeFileSync(__dirname+'/http/assets/custom/fonts/'+name, d)
+              fs.writeFileSync(__dirname+'/http/assets/custom/fonts/'+customJSON.fonts.fontFolder+'/'+name, d)
             }
           })
 
