@@ -110,12 +110,12 @@ function customize(nvis){
             }
           })
 
+          customJSON.logo.url = './assets/custom/' + logo_name
+
           nvis = nvis.replace('<!--CUSTOMCSS-->', '<link rel="stylesheet" href="./assets/custom/'+css_name+'" type="text/css">')
           nvis = nvis.replace('/*CUSTOMJSON*/', 'custom = '+JSON.stringify(customJSON)+';')
 
           fs.writeFileSync(__dirname + '/http/vis.html', nvis, 'utf8')
-
-          customJSON.logo.url = './assets/custom/' + logo_name
 
           fs.writeFileSync(__dirname + '/http/assets/custom/custom.json', JSON.stringify(customJSON))
 
