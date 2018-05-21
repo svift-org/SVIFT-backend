@@ -7,7 +7,7 @@ var express = require('express'),
 let customConfig = false
 
 if(process.env.CUSTOM && process.env.CUSTOM.length > 0){
-  customConfig = require('./http/assets/custom/custom.json')
+  customConfig = require(__dirname + '/http/assets/custom/custom.json')
 }
 
 const { Client } = require('pg')
