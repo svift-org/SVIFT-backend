@@ -112,6 +112,8 @@ function customize(nvis){
           nvis = nvis.replace('<!--CUSTOMCSS-->', '<link rel="stylesheet" href="./assets/custom/'+css_name+'" type="text/css">')
           nvis = nvis.replace('/*CUSTOMJSON*/', 'custom = '+JSON.stringify(customJSON)+';')
 
+          console.log(nvis)
+
           fs.writeFileSync(__dirname + '/http/vis.html', nvis, 'utf8')
 
           console.log('vis.html customized')
