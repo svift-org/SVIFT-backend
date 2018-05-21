@@ -66,16 +66,16 @@ function customize(nvis){
 
         const customJSON = JSON.parse(body)
 
-        if (!fs.existsSync(__dirname + '/assets/custom')) {
-            fs.mkdirSync(__dirname + '/assets/custom');
+        if (!fs.existsSync(__dirname + '/http/assets/custom')) {
+            fs.mkdirSync(__dirname + '/http/assets/custom');
         }
 
-        if (!fs.existsSync(__dirname + '/assets/custom/fonts')) {
-            fs.mkdirSync(__dirname + '/assets/custom/fonts');
+        if (!fs.existsSync(__dirname + '/http/assets/custom/fonts')) {
+            fs.mkdirSync(__dirname + '/http/assets/custom/fonts');
         }
 
-        if (!fs.existsSync(__dirname + '/assets/custom/fonts/'+customJSON.fonts.fontFolder)) {
-            fs.mkdirSync(__dirname + '/assets/custom/fonts/'+customJSON.fonts.fontFolder);
+        if (!fs.existsSync(__dirname + '/http/assets/custom/fonts/'+customJSON.fonts.fontFolder)) {
+            fs.mkdirSync(__dirname + '/http/assets/custom/fonts/'+customJSON.fonts.fontFolder);
         }
 
         let downloads = [customJSON.css, customJSON.logo.url].concat(customJSON.fonts.fontURLs)
@@ -107,9 +107,9 @@ function customize(nvis){
             let name = filePath[filePath.length-1]
             if(di == 0) css_name = name
             if(di<=1){
-              fs.writeFileSync(__dirname+'/assets/custom/'+name, d)
+              fs.writeFileSync(__dirname+'/http/assets/custom/'+name, d)
             }else{
-              fs.writeFileSync(__dirname+'/assets/custom/fonts/'+name, d)
+              fs.writeFileSync(__dirname+'/http/assets/custom/fonts/'+name, d)
             }
           })
 
