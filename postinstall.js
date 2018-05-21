@@ -60,10 +60,6 @@ function customize(nvis){
     request(options)
       .then(body => {
 
-        console.log(process.env.CUSTOM)
-        console.log(process.env.GIT_KEY)
-        console.log(body)
-
         const customJSON = JSON.parse(body)
 
         if (!fs.existsSync(__dirname + '/http/assets/custom')) {
