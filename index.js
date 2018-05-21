@@ -4,6 +4,12 @@ var express = require('express'),
   utils = require('svift-utils'),
   session = require('express-session')
 
+let customConfig = false
+
+if(process.env.CUSTOM && process.env.CUSTOM.length > 0){
+  customConfig = require('./http/assets/custom/custom.json')
+}
+
 const { Client } = require('pg')
 const uuidv1 = require('uuid/v1')
 
@@ -162,6 +168,16 @@ app.get("/" + process.env.EXPRESS_SECRET + "/db/export", function (req, res) {
 app.get("/" + process.env.EXPRESS_SECRET + "/assets/:file", function (req, res) {
   res.sendFile(__dirname + '/http/assets/'+req.params.file)
 })
+
+app.get("/" + process.env.EXPRESS_SECRET + "/assets/custom/:file", function (req, res) {
+  res.sendFile(__dirname + '/http/assets/custom/'+req.params.file)
+})
+
+if(customConfig){
+  app.get("/" + process.env.EXPRESS_SECRET + "/assets/custom/fonts/"+customConfig.fonts.fontFolder+"/:file", function (req, res) {
+    res.sendFile(__dirname + '/http/assets/custom/fonts/'+customConfig.fonts.fontFolder+'/'+req.params.file)
+  })  
+}
 
 app.get("/" + process.env.EXPRESS_SECRET + "/assets/fonts/:file", function (req, res) {
   res.sendFile(__dirname + '/http/assets/fonts/'+req.params.file)

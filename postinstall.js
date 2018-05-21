@@ -62,6 +62,8 @@ function customize(nvis){
 
         const customJSON = JSON.parse(body)
 
+        fs.writeFileSync(__dirname + '/http/assets/custom/custom.json', body)
+
         if (!fs.existsSync(__dirname + '/http/assets/custom')) {
             fs.mkdirSync(__dirname + '/http/assets/custom');
         }
@@ -111,8 +113,6 @@ function customize(nvis){
 
           nvis = nvis.replace('<!--CUSTOMCSS-->', '<link rel="stylesheet" href="./assets/custom/'+css_name+'" type="text/css">')
           nvis = nvis.replace('/*CUSTOMJSON*/', 'custom = '+JSON.stringify(customJSON)+';')
-
-          console.log(nvis)
 
           fs.writeFileSync(__dirname + '/http/vis.html', nvis, 'utf8')
 
