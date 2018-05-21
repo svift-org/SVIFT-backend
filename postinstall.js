@@ -62,11 +62,11 @@ function customize(nvis){
 
         const customJSON = JSON.parse(body)
 
-        fs.writeFileSync(__dirname + '/http/assets/custom/custom.json', body)
-
         if (!fs.existsSync(__dirname + '/http/assets/custom')) {
             fs.mkdirSync(__dirname + '/http/assets/custom');
         }
+
+        fs.writeFileSync(__dirname + '/http/assets/custom/custom.json', body)
 
         if (!fs.existsSync(__dirname + '/http/assets/custom/fonts')) {
             fs.mkdirSync(__dirname + '/http/assets/custom/fonts');
