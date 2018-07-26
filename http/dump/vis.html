@@ -32,6 +32,7 @@
   </style>
   <link rel="stylesheet" href="../assets/style/css_family_IBM_Plex_Mono|IBM_Plex_Sans_Condensed_400_700|IBM_Plex_Serif_400_700|Roboto_Condensed_400_700|Roboto_Mono|Roboto_Slab_400_700" type="text/css">
   <link rel="stylesheet" href="./assets/svift.css" type="text/css">
+  <!--CUSTOMCSS-->
 </head>
 <body>
 
@@ -46,10 +47,17 @@
     return true;
   }
 
+  var custom = false;
+
+  /*CUSTOMJSON*/
+
   var v;
 
   function vis(data){
     clear();
+    if(custom){
+      data["custom"] = custom;
+    }
     v = SVIFT.vis[data.vis.type](data, d3.select('#container'));
     v.init();
     return true;
